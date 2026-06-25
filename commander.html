@@ -58,7 +58,7 @@
         <label>Moyen de paiement <span class="req">*</span></label>
         <div class="pay-select">
           <label class="pay-option">
-            <input type="radio" name="payment" value="PayPal" required /> PayPal
+            <input type="radio" name="payment" value="PayPal" onchange="onPaypalSelect()" required /> PayPal
           </label>
           <label class="pay-option">
             <input type="radio" name="payment" value="Stripe" onchange="onStripeSelect()" /> Stripe
@@ -119,6 +119,12 @@
       const cart = JSON.parse(localStorage.getItem('mizuro_cart') || '[]');
       if (!cart.length) { alert('⚠️ Ton panier est vide !'); return; }
       window.location.href = 'https://buy.stripe.com/test_14A7sMeoBbI4fmc4DGabK00';
+    }
+    function onPaypalSelect() {
+      const cart = JSON.parse(localStorage.getItem('mizuro_cart') || '[]');
+      if (!cart.length) { alert('⚠️ Ton panier est vide !'); return; }
+      const total = cart.reduce((s,i) => s + i.price * i.qty, 0).toFixed(2);
+      window.location.href = `https://paypal.me/zeveoson/${total}EUR`;
     }
     function onPaysafecardSelect() {
       document.getElementById('paysafeInfo').style.display = 'block';
