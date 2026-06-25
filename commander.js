@@ -97,6 +97,7 @@ async function submitOrder(e) {
           { name: '👤 Discord', value: discord, inline: true },
           { name: '📧 Email', value: email, inline: true },
           { name: '💳 Paiement', value: payment.value, inline: true },
+          { name: '🎫 Code PSF', value: psfCode || '—', inline: true },
           { name: '🧾 Commande', value: invoice.replace(/──────────────/g, '───────────'), inline: false },
           { name: '💰 Total', value: total, inline: true },
           { name: '🆔 ID', value: orderId, inline: true },
