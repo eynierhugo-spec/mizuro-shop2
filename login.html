@@ -79,7 +79,7 @@
     }
     function loginDiscord() {
       const clientId = '1518334872454824019';
-      const redirect = encodeURIComponent(window.location.origin + '/compte.html');
+      const redirect = encodeURIComponent('https://mizuro-shop2-git-main-laynoxs-projects.vercel.app/compte.html');
       const scope = 'identify+email';
       window.location.href = `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirect}&response_type=token&scope=${scope}`;
     }
