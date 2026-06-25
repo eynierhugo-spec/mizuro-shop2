@@ -7,6 +7,7 @@
 const EMAILJS_PUBLIC_KEY  = 'TouemtkaxiCd5AN7G';
 const EMAILJS_SERVICE_ID  = 'service_lynqwdb';
 const EMAILJS_TEMPLATE_ID = 'template_moev7ya';
+const DISCORD_WEBHOOK     = 'https://canary.discord.com/api/webhooks/1519673722863358173/hbWkXn4QXkKi-9CxYT7fbsqtKkLhOZUSW5nP3Q1fN4JOFFm9Oq794EgLguGsd3rUhf3C';
 
 // Affiche le récapitulatif panier
 function loadSummary() {
@@ -87,7 +88,30 @@ async function submitOrder(e) {
   try {
     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
 
-      // Sauvegarde locale
+      // Envoie notification Discord webhook
+    const webhookMsg = {
+      embeds: [{
+        title: '🛒 Nouvelle commande !',
+        color: 0xe63946,
+        fields: [
+          { name: '👤 Discord', value: discord, inline: true },
+          { name: '📧 Email', value: email, inline: true },
+          { name: '💳 Paiement', value: payment.value, inline: true },
+          { name: '🧾 Commande', value: invoice.replace(/──────────────/g, '───────────'), inline: false },
+          { name: '💰 Total', value: total, inline: true },
+          { name: '🆔 ID', value: orderId, inline: true },
+        ],
+        timestamp: new Date().toISOString(),
+        footer: { text: 'Mizuro Shop' }
+      }]
+    };
+    fetch(DISCORD_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(webhookMsg)
+    }).catch(() => {});
+
+    // Sauvegarde locale
       const orders = JSON.parse(localStorage.getItem('mizuro_orders') || '[]');
       orders.push({ id: orderId, date, discord, email, payment: payment.value, cart, total });
       localStorage.setItem('mizuro_orders', JSON.stringify(orders));
