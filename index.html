@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mizuro Shop</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M16 2L4 10v12l12 8 12-8V10L16 2z" fill="url(#lg)"/>
+        <defs><linearGradient id="lg" x1="4" y1="2" x2="28" y2="30"><stop stop-color="#ff6b6b"/><stop offset="1" stop-color="#e63946"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">Mizuro shop et $B</span>
+    </div>
+    <div class="nav-right">
+      <a href="boutique.html?cat=bots" class="btn-nav">Boutique</a>
+      <a href="https://discord.gg" target="_blank" class="btn-nav">Discord</a>
+      <button class="btn-nav btn-cart" onclick="toggleCart()">🛒 <span id="cartCount">0</span></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">⚡ Livraison instantanée · Paiement sécurisé</div>
+    <p class="hero-sub">Bots Discord · Nitro · Members · Twitch · Support 24/7</p>
+    <div class="hero-btns">
+      <a href="boutique.html" class="btn-red">Commander maintenant →</a>
+      <a href="https://selfbot.fr/" target="_blank" class="btn-black">Connecte$B</a>
+      <a href="login.html" class="btn-black">Se connecter</a>
+      <a href="https://discord.gg/pu9CcwT7fM" target="_blank" class="btn-black">Rejoindre le Discord</a>
+    </div>
+    </div>
+    <div class="hero-pays">
+      <span class="pays-label">🔒 Paiements :</span>
+      <span class="pays-tag">PayPal</span>
+      <span class="pays-tag">Stripe</span>
+      <span class="pays-tag">Paysafecard</span>
+    </div>
+  </section>
+
+  <!-- MEILLEURES VENTES -->
+  <section class="boutique">
+    <div class="section-label">MEILLEURES VENTES</div>
+    <div style="display:flex;justify-content:center;">
+      <div class="card" onclick="openModal('gestion-v2')" style="width:260px">
+        <div class="card-badge pop">Populaire</div>
+        <div class="card-icon"><svg viewBox="0 0 71 55" fill="white" style="width:34px;height:34px;opacity:.85"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.22.22 0 0 0-.23.11 40.8 40.8 0 0 0-1.8 3.7 54 54 0 0 0-16.2 0 37.5 37.5 0 0 0-1.83-3.7.23.23 0 0 0-.23-.11A58.3 58.3 0 0 0 10.6 4.9a.21.21 0 0 0-.1.08C1.58 18.47-.96 31.65.3 44.67a.24.24 0 0 0 .09.17 58.8 58.8 0 0 0 17.7 8.95.23.23 0 0 0 .25-.08 42 42 0 0 0 3.61-5.88.22.22 0 0 0-.12-.31 38.7 38.7 0 0 1-5.53-2.64.23.23 0 0 1-.02-.38c.37-.28.74-.57 1.1-.86a.22.22 0 0 1 .23-.03c11.6 5.3 24.14 5.3 35.6 0a.22.22 0 0 1 .23.03c.36.29.73.58 1.1.86a.23.23 0 0 1-.02.38 36.3 36.3 0 0 1-5.54 2.63.23.23 0 0 0-.12.32 47.1 47.1 0 0 0 3.6 5.87.22.22 0 0 0 .25.09 58.6 58.6 0 0 0 17.72-8.95.23.23 0 0 0 .09-.16c1.47-15.22-2.47-28.28-10.46-39.69a.18.18 0 0 0-.09-.09zM23.74 36.8c-3.49 0-6.37-3.21-6.37-7.15 0-3.94 2.82-7.15 6.37-7.15 3.58 0 6.43 3.24 6.38 7.15 0 3.94-2.83 7.15-6.38 7.15zm23.57 0c-3.5 0-6.37-3.21-6.37-7.15 0-3.94 2.82-7.15 6.37-7.15 3.58 0 6.43 3.24 6.38 7.15 0 3.94-2.8 7.15-6.38 7.15z"/></svg></div>
+        <p class="card-name">Gestion V2</p>
+        <p class="card-sub">Lifetime</p>
+        <p class="card-price">20,00€</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+  <div class="modal" id="modal">
+    <div class="modal-header"><h2 id="modalTitle"></h2><button class="close-btn" onclick="closeModal()">✕</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+
+  <!-- CART -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header"><h2>🛒 Mon Panier</h2><button onclick="toggleCart()" class="close-btn">✕</button></div>
+    <div class="cart-items" id="cartItems"><p class="empty-cart">Ton panier est vide</p></div>
+    <div class="cart-footer">
+      <div class="cart-total">Total : <span id="cartTotal">0,00€</span></div>
+      <button class="btn-red full-width" onclick="checkout()">Commander via Discord →</button>
+      <div class="pay-methods"><span class="pays-tag">PayPal</span><span class="pays-tag">Stripe</span><span class="pays-tag">Paysafecard</span></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <footer class="footer">
+    <div class="footer-left">© 2025 Mizuro Shop</div>
+    <div class="footer-right"><span>⚡ Instantané</span><span>🔒 Sécurisé</span><span>🎧 Support 24/7</span></div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

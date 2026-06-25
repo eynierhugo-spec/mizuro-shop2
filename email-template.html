@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+    body { margin:0; padding:0; background:#0d0d0d; font-family:'Segoe UI',Arial,sans-serif; }
+    .wrap { max-width:560px; margin:0 auto; background:#111; border-radius:16px; overflow:hidden; }
+    .header { background:linear-gradient(135deg,#1a0008,#3d0015,#7a0025); padding:36px 32px; text-align:center; }
+    .header h1 { color:#fff; font-size:1.6rem; margin:0 0 6px; }
+    .header p  { color:rgba(255,255,255,0.6); font-size:0.9rem; margin:0; }
+    .logo-txt   { color:#ff6b6b; font-weight:800; }
+    .body       { padding:28px 32px; }
+    .greeting   { color:#f0f0f0; font-size:1rem; margin-bottom:20px; }
+    .thanks     { color:#aaa; font-size:0.9rem; margin-bottom:24px; line-height:1.6; }
+    .invoice-box{ background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; padding:20px; margin-bottom:20px; }
+    .invoice-title{ color:#e63946; font-size:0.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:14px; }
+    .invoice-meta { color:#777; font-size:0.8rem; margin-bottom:16px; }
+    .invoice-meta span { color:#ccc; font-weight:600; }
+    .inv-row    { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #222; font-size:0.85rem; color:#ccc; }
+    .inv-row:last-child { border-bottom:none; }
+    .inv-label  { flex:1; }
+    .inv-qty    { color:#666; margin-right:16px; }
+    .inv-price  { font-weight:700; color:#fff; }
+    .total-row  { display:flex; justify-content:space-between; padding:14px 0 0; font-size:1rem; font-weight:700; color:#fff; border-top:1px solid #333; margin-top:6px; }
+    .total-price{ color:#e63946; }
+    .info-box   { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; padding:16px 20px; margin-bottom:20px; font-size:0.85rem; color:#aaa; line-height:1.7; }
+    .info-box strong { color:#f0f0f0; }
+    .discord-btn{ display:block; background:#e63946; color:#fff; text-align:center; text-decoration:none; padding:14px 24px; border-radius:10px; font-weight:700; font-size:0.95rem; margin:24px 0 8px; }
+    .discord-note{ color:#666; font-size:0.78rem; text-align:center; margin-bottom:20px; }
+    .footer     { background:#0d0d0d; padding:20px 32px; text-align:center; border-top:1px solid #1a1a1a; }
+    .footer p   { color:#444; font-size:0.75rem; margin:4px 0; }
+    .footer a   { color:#e63946; text-decoration:none; }
+  </style>
+</head>
+<body>
+<div style="padding:20px;background:#0d0d0d;">
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>✅ <span class="logo-txt">Mizuro</span> Shop</h1>
+    <p>Commande confirmée · Livraison instantanée</p>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="greeting">Bonjour <strong>{{to_name}}</strong> 👋</p>
+    <p class="thanks">
+      Merci pour ta commande sur <strong>Mizuro Shop</strong> !<br>
+      Voici ta facture. Pour recevoir ta livraison, rejoins notre Discord en bas de ce mail.
+    </p>
+
+    <!-- FACTURE -->
+    <div class="invoice-box">
+      <div class="invoice-title">🧾 Facture</div>
+      <div class="invoice-meta">
+        N° <span>{{order_id}}</span> &nbsp;·&nbsp; Date : <span>{{order_date}}</span>
+      </div>
+
+      <!-- Les lignes de commande — générées depuis le template EmailJS -->
+      <div style="white-space:pre-line;font-size:0.85rem;color:#ccc;line-height:1.8;">{{invoice}}</div>
+    </div>
+
+    <!-- INFOS COMMANDE -->
+    <div class="info-box">
+      <strong>💳 Moyen de paiement :</strong> {{payment}}<br>
+      <strong>🎮 Discord :</strong> {{to_name}}<br>
+      <strong>📧 Email :</strong> {{to_email}}<br>
+      <strong>💬 Message :</strong> {{message}}
+    </div>
+
+    <!-- BOUTON DISCORD -->
+    <a href="{{discord_link}}" class="discord-btn">
+      👾 Rejoindre le Discord pour recevoir ta commande →
+    </a>
+    <p class="discord-note">
+      Ouvre un ticket sur le Discord et montre cette facture pour recevoir ton produit.
+    </p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>© 2025 <a href="#">Mizuro Shop</a> · Tous droits réservés</p>
+    <p>Ce mail confirme ta commande. Aucun paiement n'a encore été prélevé.</p>
+  </div>
+
+</div>
+</div>
+</body>
+</html>

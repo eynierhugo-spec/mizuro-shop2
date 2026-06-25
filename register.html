@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mizuro – Inscription</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M16 2L4 10v12l12 8 12-8V10L16 2z" fill="url(#lg5)"/>
+          <defs><linearGradient id="lg5" x1="4" y1="2" x2="28" y2="30"><stop stop-color="#ff6b6b"/><stop offset="1" stop-color="#e63946"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">Mizuro</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <a href="index.html" class="btn-nav">Accueil</a>
+      <a href="boutique.html" class="btn-nav">Boutique</a>
+    </div>
+  </nav>
+
+  <div class="login-wrap">
+    <div class="login-box">
+      <div class="login-logo">
+        <svg width="48" height="48" viewBox="0 0 32 32" fill="none">
+          <path d="M16 2L4 10v12l12 8 12-8V10L16 2z" fill="url(#ll2)"/>
+          <defs><linearGradient id="ll2" x1="4" y1="2" x2="28" y2="30"><stop stop-color="#ff6b6b"/><stop offset="1" stop-color="#e63946"/></linearGradient></defs>
+        </svg>
+        <span>Mizuro</span>
+      </div>
+      <h2>Créer un compte</h2>
+      <p class="login-sub">Rejoins Mizuro Shop</p>
+
+      <form onsubmit="doRegister(event)">
+        <div class="form-group">
+          <label>Pseudo Discord</label>
+          <input type="text" id="rDiscord" placeholder="ex: mizuro#0001" required />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="rEmail" placeholder="ton@email.com" required />
+        </div>
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input type="password" id="rPassword" placeholder="Min. 6 caractères" minlength="6" required />
+        </div>
+        <button type="submit" class="btn-red full-width" style="margin-top:8px">Créer mon compte →</button>
+      </form>
+
+      <p class="login-register">Déjà un compte ? <a href="login.html">Se connecter</a></p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function doRegister(e) {
+      e.preventDefault();
+      const discord  = document.getElementById('rDiscord').value.trim();
+      const email    = document.getElementById('rEmail').value.trim();
+      const password = document.getElementById('rPassword').value;
+      const users    = JSON.parse(localStorage.getItem('mizuro_users') || '[]');
+
+      if (users.find(u => u.email === email)) {
+        showToast('❌ Cet email est déjà utilisé !');
+        return;
+      }
+
+      users.push({ discord, email, password, createdAt: new Date().toLocaleString('fr-FR') });
+      localStorage.setItem('mizuro_users', JSON.stringify(users));
+      localStorage.setItem('mizuro_session', JSON.stringify({ discord, email }));
+
+      showToast('✅ Compte créé ! Redirection...');
+      setTimeout(() => window.location.href = 'compte.html', 1200);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+  </script>
+</body>
+</html>
